@@ -123,16 +123,16 @@
             </p>
         </footer>
         <modal :mdShow="modalOne" @close="closeModal('one')">
-            <h3 slot="title" class="">Modal One</h3>
+            <h3 slot="title">Modal One</h3>
         </modal>
         <modal :mdShow="modalTwo" @close="closeModal('two')">
-            <h3 slot="title" class="">Modal Two</h3>
+            <h3 slot="title">Modal Two</h3>
             <p slot="message">
                 {{modalMessage}}
             </p>
         </modal>
         <modal :mdShow="modalThree" @close="closeModal('three')">
-            <h3 slot="title" class="">Modal Three</h3>
+            <h3 slot="title">Modal Three</h3>
             <p slot="message">
                 {{modalMessage}}
             </p>
@@ -141,7 +141,7 @@
             </div>
         </modal>
         <modal :mdShow="modalFour" @close="closeModal('four')">
-            <h3 slot="title" class="">Modal Four</h3>
+            <h3 slot="title">Modal Four</h3>
             <p slot="message">
                 {{modalMessage}}
             </p>
@@ -151,7 +151,7 @@
             </div>
         </modal>
         <modal :mdShow="modalFive" @close="closeModal('five')">
-            <h3 slot="title" class="">Modal Five</h3>
+            <h3 slot="title">Modal Five</h3>
             <p slot="message">
                 {{modalMessage}}
                 <ul class="form-list">
@@ -306,48 +306,50 @@
     `
     /*-- npm --*/
     npm install --save vue-usemodal
-
     `
                     this.codeFirst.js = 
     `
     /*-- main.js --*/
     import Vue from 'vue'
-    import VueRipple from 'vue-usemodal'
-    Vue.use(VueRipple)
+    import VueModal from 'vue-usemodal'
+    Vue.use(VueModal)
     `
                     this.codeOne.html = 
     ` 
     <!--html-->
     <modal :mdShow="modalOne" @close="closeModal('one')">
-        <h3 slot="title" class="">Modal One</h3>
+        <h3 slot="title">Modal One</h3>
     </modal>
     `
                     this.codeTwo.html =
     `
     <!--html-->
-    <div class="ui">
-        <h2>Modal Two</h2>
-        <ripple class="ripbtn" :isInline="isInline">
-            <button slot="pure" @click="showMoal('two')">showModal</button>
-        </ripple>
-    </div>
+    <modal :mdShow="modalTwo" @close="closeModal('two')">
+        <h3 slot="title">Modal Two</h3>
+        <p slot="message">
+            {{modalMessage}}
+        </p>
+    </modal>
     `
                 this.codeThree.html = 
     `
     <!--html-->
-     <div class="ui">
-        <h2>Modal Three</h2>
-        <ripple class="ripbtn" :isInline="isInline">
-            <button slot="pure" @click="showMoal('three')">showModal</button>
-        </ripple>
-    </div>
+    <modal :mdShow="modalThree" @close="closeModal('three')">
+        <h3 slot="title">Modal Three</h3>
+        <p slot="message">
+            {{modalMessage}}
+        </p>
+        <div slot="btnGroup" class="btnGroup">
+            <button class="md-close" @click="closeModal('three')">closeModal</button>
+        </div>
+    </modal>
     `
                
                 this.codeFour.html = 
     `
     <!--html-->
     <modal :mdShow="modalFour" @close="closeModal('four')">
-        <h3 slot="title" class="">Modal Four</h3>
+        <h3 slot="title">Modal Four</h3>
         <p slot="message">
             {{modalMessage}}
         </p>
@@ -403,7 +405,7 @@
                this.codeFive.html = 
     `
     <modal :mdShow="modalFive" @close="closeModal('five')">
-        <h3 slot="title" class="">Modal Five</h3>
+        <h3 slot="title">Modal Five</h3>
         <p slot="message">
             {{modalMessage}}
             <ul class="form-list">
@@ -416,7 +418,7 @@
             </ul>
         </p>
         <div slot="btnGroup" class="btnGroup">
-            <button class="md-close" @click="setMessage();closeModal('five')">sure</button>
+            <button class="md-close" @click="closeModal('five')">sure</button>
             <button class="md-close" @click="clearMessage();closeModal('five')">cancel</button>
         </div>
     </modal>
