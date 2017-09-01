@@ -102,8 +102,8 @@
                     </ripple>
                 </div>
                 <div class="code" v-hljs>
-                    <pre><code>{{codeFour.html}}</code></pre>
-                    <pre><code>{{codeFour.css}}</code></pre>
+                    <pre><code>{{codeFive.html}}</code></pre>
+                    <pre><code>{{codeFive.css}}</code></pre>
                 </div>
             </section>
         </article>
@@ -401,6 +401,61 @@
         }
         .des {
             margin: 0 10px;
+        }
+    }
+    `
+               this.codeFive.html = 
+    `
+    <modal :mdShow="modalFive" @close="closeModal('five')">
+        <h3 slot="title" class="">Modal Five</h3>
+        <p slot="message">
+            {{modalMessage}}
+            <ul class="form-list">
+                <li class="form-list-item" v-for="(item, index) of message" key="index">
+                    <div class="list-item">
+                        <span class="list-item-name">{{item.name}}</span>
+                        <input type="text"  class="list-item-value" v-model="item.value">
+                    </div>
+                </li>
+            </ul>
+        </p>
+        <div slot="btnGroup" class="btnGroup">
+            <button class="md-close" @click="setMessage();closeModal('five')">sure</button>
+            <button class="md-close" @click="clearMessage();closeModal('five')">cancel</button>
+        </div>
+    </modal>
+    `  
+            this.codeFive.css = 
+    `
+    /*-- css --*/
+    .form-list  {
+        padding: 10px;
+        .form-list-item {
+            margin: 10px 0;
+            .list-item {
+                display: flex;
+                justify-content: space-between;
+                height: 40px;
+                .list-item-name {
+                    width: 60px;
+                    margin-right: 1em;
+                    display: inline-flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                }
+                .list-item-value {
+                    width: calc(80% - 80px)
+                }
+                .item-value {
+                    width:  calc(80% - 80px);
+                    border: 2px solid #CC99CC;
+                    padding: 0.5em 2em;
+                    border-radius: 2em;
+                    margin: 0;
+                    height: 1em;
+                    line-height: 1em;
+                }
+            }
         }
     }
     `
