@@ -58,7 +58,7 @@
             <section class="section-four">
                 <div class="ui">
                     <h2>Modal Four</h2>
-                    <ripple class="ripbtn">
+                    <ripple class="ripPanel">
                         <div slot="pure" class="panel" :style="{background: `${bg}`}">
                             <header>
                                 <h3>This is a panel</h3>
