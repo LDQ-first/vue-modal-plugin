@@ -103,4 +103,13 @@ code {
     overflow-x: hidden;
     text-align: left;
 }
+
+input {
+  border: none;
+  outline: none;
+  padding: 1em 2em;
+  border-radius: 20px;
+  background: rgba(183, 162, 221, 1);
+  color: #FFF;
+}
 </style>

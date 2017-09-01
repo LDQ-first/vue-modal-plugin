@@ -77,6 +77,35 @@
                     <pre><code>{{codeFour.css}}</code></pre>
                 </div>
             </section>
+            <section class="section-five">
+                <div class="ui">
+                    <h2>Modal Five</h2>
+                    <ripple class="ripPanel" children="one">
+                        <div slot="children" class="panel children" :style="{background: `${bg}`}">
+                            <header>
+                                <h3>This is a panel</h3>
+                            </header>
+                            <div class="content">
+                                <ul class="form-list">
+                                    <li class="form-list-item" v-for="(item, index) of message" key="index">
+                                        <div class="list-item">
+                                            <span class="list-item-name">{{item.name}}</span>
+                                            <p class="item-value">{{item.value}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ripple>
+                    <ripple class="ripbtn" :isInline="isInline">
+                        <button slot="pure" @click="showMoal('five')">showModal</button>
+                    </ripple>
+                </div>
+                <div class="code" v-hljs>
+                    <pre><code>{{codeFour.html}}</code></pre>
+                    <pre><code>{{codeFour.css}}</code></pre>
+                </div>
+            </section>
         </article>
         <footer>
             <p>Copyright {{copyRightYear}} © by <a href="https://github.com/LDQ-first">LDQ-first</a> (◕ᴗ◕)</p>
@@ -121,6 +150,24 @@
                 <button class="md-close" @click="closeModal('four')">cancel</button>
             </div>
         </modal>
+        <modal :mdShow="modalFive" @close="closeModal('five')">
+            <h3 slot="title" class="">Modal Five</h3>
+            <p slot="message">
+                {{modalMessage}}
+                <ul class="form-list">
+                    <li class="form-list-item" v-for="(item, index) of message" key="index">
+                        <div class="list-item">
+                            <span class="list-item-name">{{item.name}}</span>
+                            <input type="text"  class="list-item-value" v-model="item.value">
+                        </div>
+                    </li>
+                </ul>
+            </p>
+            <div slot="btnGroup" class="btnGroup">
+                <button class="md-close" @click="setMessage();closeModal('five')">sure</button>
+                <button class="md-close" @click="clearMessage();closeModal('five')">cancel</button>
+            </div>
+        </modal>
     </div>
 </template>
 
@@ -157,6 +204,16 @@
                     html: '',
                     css: ''
                 },
+                codeFive: {
+                    html: '',
+                    css: ''
+                },
+                message: [
+                    {name: 'name', value: ''},
+                    {name: 'age', value: ''},
+                    {name: 'address', value: ''},
+                    {name: 'phone', value: ''},
+                ]
             }
         },
         components: {
@@ -182,6 +239,9 @@
                     case 'four':
                       this.modalFour = true
                       break;
+                    case 'five':
+                      this.modalFive = true
+                      break;
                 }
             },
             closeModal (num) {
@@ -198,6 +258,9 @@
                     case 'four':
                       this.modalFour = false
                       break;
+                    case 'five':
+                      this.modalFive = false
+                      break;
                 }
             },
             setModalMessage (num) {
@@ -212,12 +275,26 @@
                       this.modalMessage = 'This is a Modal Three'
                       break;
                     case 'four':
-                      this.modalFour = 'This is a Modal Four'
+                      this.modalMessage = 'This is a Modal Four'
+                      break;
+                    case 'five':
+                      this.modalMessage = 'This is a Modal Five'
                       break;
                 }
             },
             changeBg () {
                 this.bg = this.bg === '#50CCD3' ? '#F18E5B' : '#50CCD3'
+            },
+            setMessage () {
+
+            },
+            clearMessage () {
+                this.message = [
+                    {name: 'name', value: ''},
+                    {name: 'age', value: ''},
+                    {name: 'address', value: ''},
+                    {name: 'phone', value: ''},
+                ]
             },
             setYear () {
                 const year = new Date().getFullYear()
@@ -396,6 +473,40 @@
         justify-content: space-around;
         margin: 20px 0;
     }
+    .content {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.5);
+    }
+    .form-list  {
+        padding: 10px;
+        .form-list-item {
+            margin: 10px 0;
+            .list-item {
+                display: flex;
+                justify-content: space-between;
+                height: 40px;
+                .list-item-name {
+                    width: 60px;
+                    margin-right: 1em;
+                    display: inline-flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                }
+                .list-item-value {
+                    width: calc(80% - 80px)
+                }
+                .item-value {
+                    width:  calc(80% - 80px);
+                    border: 2px solid #CC99CC;
+                    padding: 0.5em 2em;
+                    border-radius: 2em;
+                    margin: 0;
+                    height: 1em;
+                    line-height: 1em;
+                }
+            }
+        }
+    }
      @mixin panel {
         border: 2px solid #8BE388; 
         padding: 20px;
@@ -412,7 +523,7 @@
             margin: 20px 0;
         }
     }
-    .section-four {
+    .section-four, .section-five {
         .ripPanel.rippleWrapper {
             width: 80%;
             max-width: 800px;
