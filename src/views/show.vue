@@ -22,7 +22,7 @@
                     <pre><code>{{codeFirst.js}}</code></pre>
                 </div>
             </section>
-            <section class="section-btn">
+            <section class="section-one">
                 <div class="ui">
                     <h2>Modal One</h2>
                     <ripple class="ripbtn" :isInline="isInline">
@@ -33,7 +33,7 @@
                     <pre><code>{{codeOne.html}}</code></pre>
                 </div>
             </section>
-            <section class="section-pan">
+            <section class="section-two">
                 <div class="ui">
                     <h2>Modal Two</h2>
                     <ripple class="ripbtn" :isInline="isInline">
@@ -44,7 +44,7 @@
                     <pre><code>{{codeTwo.html}}</code></pre>
                 </div>
             </section>
-            <section class="section-pan-btn">
+            <section class="section-three">
                 <div class="ui">
                     <h2>Modal Three</h2>
                     <ripple class="ripbtn" :isInline="isInline">
@@ -55,12 +55,24 @@
                     <pre><code>{{codeThree.html}}</code></pre>
                 </div>
             </section>
-            <section class="section-param">
+            <section class="section-four">
                 <div class="ui">
-                    
+                    <h2>Modal Four</h2>
+                    <ripple class="ripbtn">
+                        <div slot="pure" class="panel" :style="{background: `${bg}`}">
+                            <header>
+                                <h3>This is a panel</h3>
+                            </header>
+                            <div class="content">
+                                <p>Its backgroundColor is {{bg}}</p>
+                            </div>
+                        </div>
+                    </ripple>
+                    <ripple class="ripbtn" :isInline="isInline">
+                        <button slot="pure" @click="showMoal('four')">showModal</button>
+                    </ripple>
                 </div>
                 <div class="code" v-hljs>
-                    <pre><code>{{codeFour.js}}</code></pre>
                     <pre><code>{{codeFour.html}}</code></pre>
                     <pre><code>{{codeFour.css}}</code></pre>
                 </div>
@@ -99,11 +111,20 @@
                 <button class="md-close" @click="closeModal('three')">closeModal</button>
             </div>
         </modal>
+        <modal :mdShow="modalFour" @close="closeModal('four')">
+            <h3 slot="title" class="">Modal Four</h3>
+            <p slot="message">
+                {{modalMessage}}
+            </p>
+            <div slot="btnGroup" class="btnGroup">
+                <button class="md-close" @click="changeBg();closeModal('four')">sure</button>
+                <button class="md-close" @click="closeModal('four')">cancel</button>
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
-   /* const Ripple = resolve => require(['../components/ripple.vue'], resolve)*/
     const Modal = resolve => require(['../components/modal.vue'], resolve)
     
     export default {
@@ -117,9 +138,12 @@
                 modalOne: false,
                 modalTwo: false,
                 modalThree: false,
+                modalFour: false,
+                modalFive: false,
                 modalMessage: 'This is a Modal',
                 isInline: true,
                 br: true,
+                bg: '#50CCD3',
                 codeOne: {
                     html: ''
                 },
@@ -131,13 +155,11 @@
                 },
                 codeFour: {
                     html: '',
-                    css: '',
-                    js: ''
+                    css: ''
                 },
             }
         },
         components: {
-            /*Ripple,*/
             Modal
         },
         created () {
@@ -146,7 +168,6 @@
         },
         methods: {
             showMoal (num) {
-                console.log(num)
                 this.setModalMessage(num)
                 switch (num) {
                     case 'one':
@@ -157,6 +178,9 @@
                       break;
                     case 'three':
                       this.modalThree = true
+                      break;
+                    case 'four':
+                      this.modalFour = true
                       break;
                 }
             },
@@ -171,6 +195,9 @@
                     case 'three':
                       this.modalThree = false
                       break;
+                    case 'four':
+                      this.modalFour = false
+                      break;
                 }
             },
             setModalMessage (num) {
@@ -184,7 +211,13 @@
                     case 'three':
                       this.modalMessage = 'This is a Modal Three'
                       break;
+                    case 'four':
+                      this.modalFour = 'This is a Modal Four'
+                      break;
                 }
+            },
+            changeBg () {
+                this.bg = this.bg === '#50CCD3' ? '#F18E5B' : '#50CCD3'
             },
             setYear () {
                 const year = new Date().getFullYear()
@@ -240,10 +273,59 @@
                 this.codeFour.html = 
     `
     <!--html-->
-    <div class="ui">
-        
-    </div>
+    <modal :mdShow="modalFour" @close="closeModal('four')">
+        <h3 slot="title" class="">Modal Four</h3>
+        <p slot="message">
+            {{modalMessage}}
+        </p>
+        <div slot="btnGroup" class="btnGroup">
+            <button class="md-close" @click="changeBg();closeModal('four')">sure</button>
+            <button class="md-close" @click="closeModal('four')">cancel</button>
+        </div>
+    </modal>
     
+    `
+                this.codeFour.css = 
+    `
+    /*-- sass --*/
+    .btnGroup {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
+     @mixin panel {
+        border: 2px solid #8BE388; 
+        padding: 20px;
+        background: #EEE;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        header {
+            width: 100%;
+            text-align: left;
+        } 
+        .content {
+            margin: 20px 0;
+        }
+    }
+    .section-four {
+        .ripPanel.rippleWrapper {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .panel {
+             @include panel
+        }
+        .br {
+            width: 88px;
+            height: 88px;
+        }
+        .des {
+            margin: 0 10px;
+        }
+    }
     `
 
                 
@@ -309,6 +391,43 @@
         max-width: 768px;
         margin: 0 auto;
     }
+    .btnGroup {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
+     @mixin panel {
+        border: 2px solid #8BE388; 
+        padding: 20px;
+        background: #EEE;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        header {
+            width: 100%;
+            text-align: left;
+        } 
+        .content {
+            margin: 20px 0;
+        }
+    }
+    .section-four {
+        .ripPanel.rippleWrapper {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .panel {
+             @include panel
+        }
+        .br {
+            width: 88px;
+            height: 88px;
+        }
+        .des {
+            margin: 0 10px;
+        }
+    }
     
-
 </style>
