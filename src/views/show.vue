@@ -164,7 +164,7 @@
                 </ul>
             </p>
             <div slot="btnGroup" class="btnGroup">
-                <button class="md-close" @click="setMessage();closeModal('five')">sure</button>
+                <button class="md-close" @click="closeModal('five')">sure</button>
                 <button class="md-close" @click="clearMessage();closeModal('five')">cancel</button>
             </div>
         </modal>
@@ -172,7 +172,7 @@
 </template>
 
 <script>
-    const Modal = resolve => require(['../components/modal.vue'], resolve)
+   /* const Modal = resolve => require(['../components/modal.vue'], resolve)*/
     
     export default {
         data () { 
@@ -189,7 +189,6 @@
                 modalFive: false,
                 modalMessage: 'This is a Modal',
                 isInline: true,
-                br: true,
                 bg: '#50CCD3',
                 codeOne: {
                     html: ''
@@ -216,9 +215,9 @@
                 ]
             }
         },
-        components: {
+        /*components: {
             Modal
-        },
+        },*/
         created () {
             this.setCode()
             this.setYear()
@@ -284,9 +283,6 @@
             },
             changeBg () {
                 this.bg = this.bg === '#50CCD3' ? '#F18E5B' : '#50CCD3'
-            },
-            setMessage () {
-
             },
             clearMessage () {
                 this.message = [
@@ -458,10 +454,7 @@
             }
         }
     }
-    `
-
-                
-                  
+    `          
             }
 
         }

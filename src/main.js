@@ -7,6 +7,8 @@ import 'highlight.js/styles/atom-one-dark.css'
 
 import VueRipple from 'vue-useripple'
 Vue.use(VueRipple)
+import VueModal from 'vue-usemodal'
+Vue.use(VueModal)
 
 
 Vue.config.productionTip = false
