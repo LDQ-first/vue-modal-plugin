@@ -116,6 +116,10 @@ props: ['mdShow']
 > You can also explore more use by yourself 
 
 
+## Dependencies
+
+* SASS
+
 
 
 ## Build Setup
